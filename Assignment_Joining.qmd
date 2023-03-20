@@ -82,8 +82,13 @@ Join together the election results and demographics tables above, and then use t
 
 ```{r}
 
+full_join(counties_elexresults, counties_demographics) %>% 
+  filter(state_code == "FL") %>% 
+  group_by(pct_ed_college_all_abovebelow_natl) %>% 
+  summarise(average = mean(pct_r_2020))
 
-
+# I used the full join function and filtered for FL. Then I grouped by the national above/below 
+# average for college graduates and summarized using the mean pct Trump received. 
 
 ```
 
@@ -97,8 +102,11 @@ Using the joined table you made above:
 
 ```{r}
 
+full_join(counties_elexresults, counties_demographics) %>% 
+  group_by(pct_ed_college_all_abovebelow_natl) %>% 
+  summarise(average = mean(pct_r_2020))
 
-
+# I used the same code as above and just removed the filter for state. 
 
 ```
 
