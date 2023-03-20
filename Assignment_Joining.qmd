@@ -116,8 +116,13 @@ Now using the joined datasets above, come up with two groupings you find interes
 
 ```{r}
 
+full_join(counties_elexresults, counties_rural_urban_suburban) %>% 
+  filter(state_code == "AR") %>% 
+  group_by(rural_urban) %>% 
+  summarise(avg_pct_d = mean(pct_d_2020))
 
-
+# I wanted to see the percentage of democrat votes by rural/urban voters in AR. I adapted
+# the code above to look at this. 
 
 ```
 
@@ -125,9 +130,16 @@ Now using the joined datasets above, come up with two groupings you find interes
 
 ```{r}
 
-
-
-
+inner_join(counties_elexresults, counties_demographics) %>% 
+  filter(state_code == "MO") %>% 
+  filter(county == "Greene") %>% 
+  group_by(pct_d_2020, pct_r_2020) %>% 
+  summarise(n())
+  
+  
+# I wanted to isolate my county in Missouri to look at the percent of the democrat and 
+# republican votes in 2020. I filtered by state and county. Then I grouped by pct democrat
+# and percent republican. Then I used summarise to be able to isolate them. 
 
 ```
 
@@ -139,7 +151,11 @@ Up until now we've joined two tables together. But we actually have three tables
 
 
 
+demog_elex <- full_join(counties_demographics, counties_elexresults) 
 
+full_join(demog_elex, counties_rural_urban_suburban)
 
+# I did multiple steps. I combined two datasets and renamed it. Then I used that new dataset
+# to join with the other dataset. 
 
 ```
