@@ -1,6 +1,6 @@
 ---
 title: "Joining Assignment"
-author: "Your Name Here"
+author: "Hannah Loder"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 format:
   html:
@@ -41,9 +41,14 @@ Join together the election results and urban/suburban/rural tables above, and th
 
 ```{r}
 
+full_join(counties_elexresults, counties_rural_urban_suburban) %>% 
+  filter(state_code == "VA") %>% 
+  group_by(rural_urban) %>% 
+  summarise(avg_pct_trump = mean(pct_r_2020))
 
-
-
+# I used the full join function to keep everything, and then I filtered by VA's state code. 
+# Then I used the group and summarise functions to get the average percent Trump vote in 
+# urban and rural categories. 
 ```
 
 2)  
@@ -56,7 +61,13 @@ Using the joined election results / urban/suburban/rural table created above:
 
 ```{r}
 
+full_join(counties_elexresults, counties_rural_urban_suburban) %>% 
+  filter(state_code == "VA") %>% 
+  group_by(rural_urban) %>% 
+  count(winner_2020, name = "count")
 
+# I used the same code from above, and I counted the winner_2020 category instead of 
+# finding the percent like the last question. 
 
 
 ```
